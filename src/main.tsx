@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { StrictMode } from "react";
 import { RouterProvider, createRouter } from "@tanstack/react-router";
+import { Analytics } from "@vercel/analytics/react";
 
 import { routeTree } from "./routeTree.gen";
 import { ClerkProvider } from "@clerk/clerk-react";
@@ -37,6 +38,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
       <ClerkProvider publishableKey={CLERK_PUBLISHABLE_KEY} afterSignOutUrl="/">
         <QueryClientProvider client={queryClient}>
           <RouterProvider router={router} />
+          <Analytics />
         </QueryClientProvider>
       </ClerkProvider>
     </StrictMode>
