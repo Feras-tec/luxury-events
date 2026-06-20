@@ -1,7 +1,7 @@
 import { createRootRoute, Outlet } from "@tanstack/react-router";
 import { Navbar } from "../components/Navbar/Navbar";
 import { motion } from "framer-motion";
-import { Footer } from "../components/organisms/Footer";
+import Footer from "../components/organisms/Footer";
 
 export const Route = createRootRoute({
   component: () => (

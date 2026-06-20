@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as NotFoundRouteImport } from './routes/not-found'
 import { Route as CalendarRouteImport } from './routes/calendar'
 import { Route as AboutRouteImport } from './routes/about'
+import { Route as ImpressumRouteImport } from './routes/Impressum'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as EventsIndexRouteImport } from './routes/events/index'
 import { Route as SignSignUpRouteImport } from './routes/sign/sign-up'
@@ -35,6 +36,11 @@ const CalendarRoute = CalendarRouteImport.update({
 const AboutRoute = AboutRouteImport.update({
   id: '/about',
   path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ImpressumRoute = ImpressumRouteImport.update({
+  id: '/Impressum',
+  path: '/Impressum',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -85,6 +91,7 @@ const EventsEventidEditRoute = EventsEventidEditRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/Impressum': typeof ImpressumRoute
   '/about': typeof AboutRoute
   '/calendar': typeof CalendarRoute
   '/not-found': typeof NotFoundRoute
@@ -99,6 +106,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/Impressum': typeof ImpressumRoute
   '/about': typeof AboutRoute
   '/calendar': typeof CalendarRoute
   '/not-found': typeof NotFoundRoute
@@ -113,6 +121,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/Impressum': typeof ImpressumRoute
   '/about': typeof AboutRoute
   '/calendar': typeof CalendarRoute
   '/not-found': typeof NotFoundRoute
@@ -129,6 +138,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/Impressum'
     | '/about'
     | '/calendar'
     | '/not-found'
@@ -143,6 +153,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/Impressum'
     | '/about'
     | '/calendar'
     | '/not-found'
@@ -156,6 +167,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/Impressum'
     | '/about'
     | '/calendar'
     | '/not-found'
@@ -171,6 +183,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ImpressumRoute: typeof ImpressumRoute
   AboutRoute: typeof AboutRoute
   CalendarRoute: typeof CalendarRoute
   NotFoundRoute: typeof NotFoundRoute
@@ -203,6 +216,13 @@ declare module '@tanstack/react-router' {
       path: '/about'
       fullPath: '/about'
       preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/Impressum': {
+      id: '/Impressum'
+      path: '/Impressum'
+      fullPath: '/Impressum'
+      preLoaderRoute: typeof ImpressumRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -287,6 +307,7 @@ const EventsEventidRouteWithChildren = EventsEventidRoute._addFileChildren(
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ImpressumRoute: ImpressumRoute,
   AboutRoute: AboutRoute,
   CalendarRoute: CalendarRoute,
   NotFoundRoute: NotFoundRoute,
