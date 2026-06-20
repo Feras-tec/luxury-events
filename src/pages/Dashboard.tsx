@@ -57,20 +57,20 @@ export const Dashboard = () => {
   };
 
   return (
-    <div className="space-y-8 p-1 text-base-content">
+    <div className="space-y-8 p-1 text-base-content w-full max-w-full">
       <div>
-        <h1 className="text-3xl font-black tracking-tight">
+        <h1 className="text-2xl md:text-3xl font-black tracking-tight">
           Welcome Back,{" "}
           <span className="text-primary">
             {user?.firstName || "Developer"}! 👋
           </span>
         </h1>
-        <p className="text-sm text-base-content/60 mt-1">
+        <p className="text-xs md:text-sm text-base-content/60 mt-1">
           EventBoard Key Statistics and Analytical Overview.
         </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 w-full">
         {[
           {
             title: "Total Events",
@@ -103,22 +103,24 @@ export const Dashboard = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: index * 0.05, duration: 0.4 }}
             whileHover={{ y: -5, scale: 1.01 }}
-            className="card bg-base-100 border border-base-200 shadow-sm p-6"
+            className="card bg-base-100 border border-base-200 shadow-sm p-4 md:p-6 w-full min-w-0"
           >
-            <div className="text-[10px] font-bold uppercase tracking-widest text-base-content/50">
+            <div className="text-[10px] font-bold uppercase tracking-widest text-base-content/50 truncate">
               {stat.title}
             </div>
-            <div className={`text-3xl font-black mt-2 ${stat.color}`}>
+            <div
+              className={`text-2xl md:text-3xl font-black mt-2 ${stat.color}`}
+            >
               {stat.value}
             </div>
-            <div className="text-[11px] text-base-content/40 mt-1 uppercase font-medium">
+            <div className="text-[10px] md:text-[11px] text-base-content/40 mt-1 uppercase font-medium block truncate">
               {stat.desc}
             </div>
           </motion.div>
         ))}
       </div>
 
-      <div className="space-y-4">
+      <div className="space-y-4 w-full">
         <h2 className="text-xl font-bold tracking-tight">
           Next 3 Upcoming Events 📅
         </h2>
@@ -137,10 +139,14 @@ export const Dashboard = () => {
             variants={containerVariants}
             initial="hidden"
             animate="show"
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full"
           >
             {incomingWorkshops.map((workshop) => (
-              <motion.div key={workshop.id} variants={itemVariants}>
+              <motion.div
+                key={workshop.id}
+                variants={itemVariants}
+                className="w-full min-w-0"
+              >
                 <EventCard workshop={workshop} />
               </motion.div>
             ))}

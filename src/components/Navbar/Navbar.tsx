@@ -46,7 +46,7 @@ export const Navbar = () => {
                 tracking-tight
               "
             >
-              DevHub 🚀
+              Luxury Events ✨
             </Link>
           </motion.div>
 
