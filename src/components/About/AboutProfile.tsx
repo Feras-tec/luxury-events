@@ -31,9 +31,10 @@ export const AboutProfile: React.FC<AboutProfileProps> = ({ variants }) => {
         </p>
 
         <p className="text-sm text-base-content/70 leading-relaxed">
-          Softwareentwicklungsstudent am Digital Career Institute in Hamburg.
-          Meine Leidenschaft ist sauberer Code, moderne Architektur und
-          intuitive Benutzeroberflächen.
+          "Als Full-Stack-Entwickler kombiniere ich sauberen Code mit moderner
+          Architektur. Dieses Projekt wurde als performante SPA mit React 19,
+          TypeScript und Tailwind CSS realisiert – optimiert für ein nahtloses
+          Nutzererlebnis."
         </p>
 
         <div className="divider" />
