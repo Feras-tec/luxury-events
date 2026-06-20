@@ -2,7 +2,7 @@ import { createRootRoute, Outlet } from "@tanstack/react-router";
 import { Navbar } from "../components/Navbar/Navbar";
 import { motion } from "framer-motion";
 import Footer from "../components/organisms/Footer";
-
+import { Analytics } from "@vercel/analytics/react";
 export const Route = createRootRoute({
   component: () => (
     <div className="min-h-screen bg-base-200/30 flex flex-col w-full overflow-x-hidden">
@@ -20,6 +20,7 @@ export const Route = createRootRoute({
       </main>
 
       <Footer />
+      <Analytics />
     </div>
   ),
 });
