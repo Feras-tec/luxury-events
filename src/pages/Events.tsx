@@ -13,6 +13,7 @@ export const Events = () => {
   const { user, isSignedIn } = useUser();
 
   const [searchQuery, setSearchQuery] = useState("");
+
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [sortBy, setSortBy] = useState("date");
 
@@ -53,8 +54,10 @@ export const Events = () => {
     const matchesSearch =
       workshop.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
       workshop.instructor.toLowerCase().includes(searchQuery.toLowerCase());
+
     const matchesCategory =
-      selectedCategory === "All" || workshop.category === selectedCategory;
+      selectedCategory === "All" ||
+      workshop.category.toLowerCase() === selectedCategory.toLowerCase();
 
     return matchesSearch && matchesCategory;
   });

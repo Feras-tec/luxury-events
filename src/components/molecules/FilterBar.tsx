@@ -9,7 +9,14 @@ export const FilterBar = ({
   selectedCategory,
   onCategoryChange,
 }: FilterBarProps) => {
-  const categories = ["All", "Frontend", "Backend", "Fullstack"];
+  const categories = [
+    "All",
+    "Workshop",
+    "Talk",
+    "Networking",
+    "Review",
+    "Other",
+  ];
 
   return (
     <div className="flex flex-wrap items-center gap-2">
