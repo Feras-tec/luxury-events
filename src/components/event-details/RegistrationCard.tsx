@@ -2,6 +2,8 @@ interface RegistrationCardProps {
   status: string;
   location: string;
   date: string;
+  time: string;
+  duration: string;
   maxAttendees: number;
   isUpdating: boolean;
   disabled: boolean;
@@ -14,6 +16,8 @@ export const RegistrationCard = ({
   status,
   location,
   date,
+  time,
+  duration,
   maxAttendees,
   isUpdating,
   disabled,
@@ -72,6 +76,22 @@ export const RegistrationCard = ({
             <span className="opacity-70">📅 Date:</span>
             <span className="font-semibold text-base-content">{date}</span>
           </div>
+
+          {time && (
+            <div className="flex justify-between items-center">
+              <span className="opacity-70">🕒 Time:</span>
+              <span className="font-semibold text-base-content">{time}</span>
+            </div>
+          )}
+
+          {duration && (
+            <div className="flex justify-between items-center">
+              <span className="opacity-70">⏳ Duration:</span>
+              <span className="font-semibold text-base-content">
+                {duration}
+              </span>
+            </div>
+          )}
 
           <div className="flex justify-between items-center">
             <span className="opacity-70">👥 Max Capacity:</span>

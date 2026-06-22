@@ -45,7 +45,16 @@ export const EventCard = ({ workshop }: EventCardProps) => {
       <div className="pt-4 border-t border-base-200 flex items-center justify-between">
         <div className="text-xs">
           <p className="font-bold text-base-content">{workshop.instructor}</p>
-          <p className="text-base-content/40 mt-0.5">{workshop.date}</p>
+
+          <p className="text-base-content/50 mt-0.5 flex items-center gap-1">
+            <span>📅 {workshop.date}</span>
+            {workshop.time && (
+              <>
+                <span className="mx-0.5 opacity-60">•</span>
+                <span>🕒 {workshop.time}</span>
+              </>
+            )}
+          </p>
         </div>
         <Link
           to="/events/$eventid"

@@ -159,6 +159,8 @@ export const EventDetails = () => {
             status={workshop.status}
             location={workshop.location}
             date={workshop.date}
+            time={workshop.time}
+            duration={workshop.duration}
             maxAttendees={workshop.maxAttendees}
             isUpdating={isUpdating}
             disabled={isUpdating || !user || (!isRegistered && isFull)}
