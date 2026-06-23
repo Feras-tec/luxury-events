@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as PostsRouteImport } from './routes/posts'
 import { Route as NotFoundRouteImport } from './routes/not-found'
 import { Route as CalendarRouteImport } from './routes/calendar'
 import { Route as AboutRouteImport } from './routes/about'
@@ -23,6 +24,11 @@ import { Route as EventsEventidRouteImport } from './routes/events/$eventid'
 import { Route as EventsEventidIndexRouteImport } from './routes/events/$eventid.index'
 import { Route as EventsEventidEditRouteImport } from './routes/events/$eventid.edit'
 
+const PostsRoute = PostsRouteImport.update({
+  id: '/posts',
+  path: '/posts',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const NotFoundRoute = NotFoundRouteImport.update({
   id: '/not-found',
   path: '/not-found',
@@ -95,6 +101,7 @@ export interface FileRoutesByFullPath {
   '/about': typeof AboutRoute
   '/calendar': typeof CalendarRoute
   '/not-found': typeof NotFoundRoute
+  '/posts': typeof PostsRoute
   '/events/$eventid': typeof EventsEventidRouteWithChildren
   '/events/create': typeof EventsCreateRoute
   '/events/new': typeof EventsNewRoute
@@ -110,6 +117,7 @@ export interface FileRoutesByTo {
   '/about': typeof AboutRoute
   '/calendar': typeof CalendarRoute
   '/not-found': typeof NotFoundRoute
+  '/posts': typeof PostsRoute
   '/events/create': typeof EventsCreateRoute
   '/events/new': typeof EventsNewRoute
   '/sign/sign-in': typeof SignSignInRoute
@@ -125,6 +133,7 @@ export interface FileRoutesById {
   '/about': typeof AboutRoute
   '/calendar': typeof CalendarRoute
   '/not-found': typeof NotFoundRoute
+  '/posts': typeof PostsRoute
   '/events/$eventid': typeof EventsEventidRouteWithChildren
   '/events/create': typeof EventsCreateRoute
   '/events/new': typeof EventsNewRoute
@@ -142,6 +151,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/calendar'
     | '/not-found'
+    | '/posts'
     | '/events/$eventid'
     | '/events/create'
     | '/events/new'
@@ -157,6 +167,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/calendar'
     | '/not-found'
+    | '/posts'
     | '/events/create'
     | '/events/new'
     | '/sign/sign-in'
@@ -171,6 +182,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/calendar'
     | '/not-found'
+    | '/posts'
     | '/events/$eventid'
     | '/events/create'
     | '/events/new'
@@ -187,6 +199,7 @@ export interface RootRouteChildren {
   AboutRoute: typeof AboutRoute
   CalendarRoute: typeof CalendarRoute
   NotFoundRoute: typeof NotFoundRoute
+  PostsRoute: typeof PostsRoute
   EventsEventidRoute: typeof EventsEventidRouteWithChildren
   EventsCreateRoute: typeof EventsCreateRoute
   EventsNewRoute: typeof EventsNewRoute
@@ -197,6 +210,13 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/posts': {
+      id: '/posts'
+      path: '/posts'
+      fullPath: '/posts'
+      preLoaderRoute: typeof PostsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/not-found': {
       id: '/not-found'
       path: '/not-found'
@@ -311,6 +331,7 @@ const rootRouteChildren: RootRouteChildren = {
   AboutRoute: AboutRoute,
   CalendarRoute: CalendarRoute,
   NotFoundRoute: NotFoundRoute,
+  PostsRoute: PostsRoute,
   EventsEventidRoute: EventsEventidRouteWithChildren,
   EventsCreateRoute: EventsCreateRoute,
   EventsNewRoute: EventsNewRoute,
