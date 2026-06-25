@@ -5,10 +5,15 @@ export type Post = {
   userId: number;
 };
 
-export async function fetchPosts(userId?: number): Promise<Post[]> {
-  const url = userId
-    ? `https://jsonplaceholder.typicode.com/posts?userId=${userId}`
-    : "https://jsonplaceholder.typicode.com/posts";
+export async function fetchPosts(
+  userId?: number,
+  triggerError?: boolean,
+): Promise<Post[]> {
+  const url = triggerError
+    ? "https://jsonplaceholder.typicode.com/invalid-route-error-simulation"
+    : userId
+      ? `https://jsonplaceholder.typicode.com/posts?userId=${userId}`
+      : "https://jsonplaceholder.typicode.com/posts";
 
   const res = await fetch(url);
 
