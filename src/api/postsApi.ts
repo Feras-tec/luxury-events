@@ -1,25 +1,31 @@
-export interface Post {
+export type Post = {
   id: number;
-  userId: number;
   title: string;
   body: string;
-}
+  userId: number;
+};
 
-export async function fetchPosts(): Promise<Post[]> {
-  const response = await fetch("https://jsonplaceholder.typicode.com/posts");
+export type NewPost = Omit<Post, "id">;
 
-  if (!response.ok) {
-    throw new Error("Fehler beim Laden der Beiträge");
+export async function fetchPosts(
+  userId?: number,
+  triggerError?: boolean,
+): Promise<Post[]> {
+  const url = triggerError
+    ? "https://jsonplaceholder.typicode.com/invalid-route-error-simulation"
+    : userId
+      ? `https://jsonplaceholder.typicode.com/posts?userId=${userId}`
+      : "https://jsonplaceholder.typicode.com/posts";
+
+  const res = await fetch(url);
+  if (!res.ok) {
+    throw new Error("Fehler beim Laden der Posts");
   }
-
-  return response.json();
+  return res.json();
 }
-export async function createPost(newPost: {
-  title: string;
-  body: string;
-  userId: number;
-}) {
-  const response = await fetch("https://jsonplaceholder.typicode.com/posts", {
+
+export async function createPost(newPost: NewPost): Promise<Post> {
+  const res = await fetch("https://jsonplaceholder.typicode.com/posts", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -27,9 +33,18 @@ export async function createPost(newPost: {
     body: JSON.stringify(newPost),
   });
 
-  if (!response.ok) {
+  if (!res.ok) {
     throw new Error("Fehler beim Erstellen des Posts");
   }
 
-  return response.json();
+  return res.json();
+}
+export async function deletePost(id: number): Promise<void> {
+  const res = await fetch(`https://jsonplaceholder.typicode.com/posts/${id}`, {
+    method: "DELETE",
+  });
+
+  if (!res.ok) {
+    throw new Error("Fehler beim Löschen des Posts");
+  }
 }

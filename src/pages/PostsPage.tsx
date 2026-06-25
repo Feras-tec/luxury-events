@@ -1,7 +1,10 @@
 import { useState } from "react";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { fetchPosts } from "../services/postsApi";
-import type { Post } from "../services/postsApi";
+import { useQueryClient } from "@tanstack/react-query";
+import {
+  usePostsQuery,
+  useCreatePostMutation,
+  useDeletePostMutation,
+} from "../api/usePosts";
 
 export function PostsPage() {
   const queryClient = useQueryClient();
@@ -12,21 +15,77 @@ export function PostsPage() {
     useState<boolean>(false);
   const [customStaleTime, setCustomStaleTime] = useState<number>(0);
 
-  const { data, isPending, isError, error, refetch, isFetching } = useQuery<
-    Post[]
-  >({
-    queryKey: ["posts", userId, shouldSimulateError],
-    queryFn: () =>
-      fetchPosts(userId === "all" ? undefined : userId, shouldSimulateError),
-    staleTime: customStaleTime,
+  const [title, setTitle] = useState("");
+  const [body, setBody] = useState("");
+
+  const { data, isPending, isError, error, refetch, isFetching } =
+    usePostsQuery(userId, shouldSimulateError, customStaleTime);
+
+  const mutation = useCreatePostMutation(() => {
+    setTitle("");
+    setBody("");
   });
+
+  const deleteMutation = useDeletePostMutation(userId, shouldSimulateError);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!title || !body) return;
+
+    mutation.mutate({
+      title,
+      body,
+      userId: 1,
+    });
+  };
 
   const filteredData =
     userId === "all" ? data : data?.filter((post) => post.userId === userId);
 
   return (
     <div className="p-6 space-y-4 max-w-4xl mx-auto">
-      <h1 className="text-2xl font-bold">Posts Page</h1>
+      <h1 className="text-2xl font-bold">Posts Page & Mutations</h1>
+
+      <form
+        onSubmit={handleSubmit}
+        className="p-4 bg-white border border-gray-200 rounded-xl shadow-sm space-y-3"
+      >
+        <h2 className="text-lg font-semibold text-gray-800">
+          Neuen Post erstellen
+        </h2>
+
+        <div className="grid grid-cols-1 gap-3">
+          <input
+            type="text"
+            placeholder="Titel"
+            className="input input-bordered input-sm w-full"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            disabled={mutation.isPending}
+          />
+          <textarea
+            placeholder="Inhalt (Body)"
+            className="textarea textarea-bordered textarea-sm w-full"
+            value={body}
+            onChange={(e) => setBody(e.target.value)}
+            disabled={mutation.isPending}
+          />
+        </div>
+
+        <button
+          type="submit"
+          className="btn btn-sm btn-success text-white"
+          disabled={mutation.isPending}
+        >
+          {mutation.isPending ? "Wird gespeichert..." : "Post Absenden"}
+        </button>
+
+        {mutation.isError && (
+          <div className="text-xs text-red-600 font-semibold">
+            Fehler: {mutation.error.message}
+          </div>
+        )}
+      </form>
 
       <div className="p-4 bg-gray-100 rounded-lg grid grid-cols-1 md:grid-cols-2 gap-4 border border-gray-200">
         <div className="space-y-2">
@@ -128,36 +187,34 @@ export function PostsPage() {
           {filteredData.slice(0, 10).map((post) => (
             <li
               key={post.id}
-              className="p-4 bg-white border border-gray-200 rounded-xl shadow-sm"
+              className="p-4 bg-white border border-gray-200 rounded-xl shadow-sm flex justify-between items-start gap-4"
             >
-              <div className="flex justify-between items-center mb-2">
-                <span className="text-xs font-mono bg-gray-200 px-2 py-0.5 rounded text-gray-700">
-                  ID: {post.id}
-                </span>
-                <span className="text-xs text-gray-500 font-semibold">
-                  User ID: {post.userId}
-                </span>
+              <div className="flex-1">
+                <div className="flex justify-between items-center mb-2">
+                  <span className="text-xs font-mono bg-gray-200 px-2 py-0.5 rounded text-gray-700">
+                    ID: {post.id}
+                  </span>
+                  <span className="text-xs text-gray-500 font-semibold">
+                    User ID: {post.userId}
+                  </span>
+                </div>
+                <h3 className="font-bold text-md text-gray-900 capitalize mb-1">
+                  {post.title}
+                </h3>
+                <p className="text-sm text-gray-600 leading-relaxed">
+                  {post.body}
+                </p>
               </div>
-              <h3 className="font-bold text-md text-gray-900 capitalize mb-1">
-                {post.title}
-              </h3>
-              <p className="text-sm text-gray-600 leading-relaxed">
-                {post.body}
-              </p>
+              <button
+                onClick={() => deleteMutation.mutate(post.id)}
+                className="btn btn-xs btn-error text-white"
+              >
+                Löschen
+              </button>
             </li>
           ))}
         </ul>
       )}
-
-      {!show && (
-        <div className="p-10 text-center text-gray-400 italic border border-dashed border-gray-300 rounded-xl bg-gray-50">
-          List view is unmounted. Cache records remain preserved.
-        </div>
-      )}
-
-      <div className="text-xs opacity-60 font-mono text-right">
-        Filter State: {userId}
-      </div>
     </div>
   );
 }
