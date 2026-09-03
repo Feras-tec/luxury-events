@@ -1,39 +1,60 @@
+# Luxury Events
 
-https://luxury-events-six.vercel.app/
+A modern, responsive event-management application built with the latest React ecosystem. Users can discover and search events, explore a calendar, authenticate securely, and manage events through an interactive dashboard.
 
+[View Live Demo](https://luxury-events-six.vercel.app/)
 
-# 🚀 [Hier Projektnamen einfügen]
+## Features
 
-Eine kurze und prägnante Beschreibung deines Projekts. Erkläre hier, welches Problem die Anwendung löst und was ihre Hauptfunktion ist (z. B. "Ein kollaboratives Task-Board für Teams mit Echtzeit-Updates").
+- Event discovery with search and animated event cards
+- Calendar view for browsing scheduled events
+- Interactive dashboard with event and occupancy insights
+- Create and edit event workflows
+- Secure sign-in and sign-up with Clerk
+- Responsive layout for desktop, tablet and mobile
+- Smooth page and component animations
+- Client-side routing, asynchronous data handling and validation
+- Vercel Analytics integration
 
----
+## Tech stack
 
-## 🛠️ Tech Stack
+| Area | Technologies |
+| --- | --- |
+| Core | React 19, TypeScript, Vite |
+| Styling | Tailwind CSS 4, daisyUI 5 |
+| UI & animation | Framer Motion, Lucide React, React Icons |
+| Routing & data | TanStack Router, TanStack Query |
+| Forms & validation | React Hook Form, Zod |
+| Authentication | Clerk |
+| Deployment & analytics | Vercel, Vercel Analytics |
 
-- **Frontend:** React (Vite), TypeScript, Tailwind CSS
-- **Routing & State:** TanStack Router / React Context API
-- **Authentifizierung:** Clerk Auth
-- **Backend & Datenbank:** Node.js, Express, PostgreSQL / MongoDB
-- **Deployment:** Vercel / Netlify
+## Local development
 
----
+Prerequisites: Node.js and npm.
 
-## ✨ Hauptfunktionen (Features)
+~~~bash
+git clone https://github.com/Feras-tec/luxury-events.git
+cd luxury-events
+npm install
+npm run dev
+~~~
 
-- **🔐 Sichere Authentifizierung:** Benutzeranmeldung und Rollenverwaltung (z. B. Admin- und Benutzerrechte) via Clerk.
-- **📊 Interaktives Dashboard:** Übersichtliche Darstellung von Daten und Aufgaben mit intuitiver Benutzeroberfläche.
-- **📱 Fully Responsive:** Optimierte Darstellung für alle Endgeräte (Desktop, Tablet und Smartphone).
-- **⚡ High Performance:** Blitzschnelle Ladezeiten und reibungslose Navigation dank Vite und modernem Routing.
+Create the required local environment configuration for Clerk before testing authentication. Never commit real credentials.
 
----
+## Available scripts
 
-## 🚀 Erste Schritte (Getting Started)
+~~~bash
+npm run dev
+npm run build
+npm run lint
+npm run preview
+~~~
 
-Befolge diese Anweisungen, um eine Kopie des Projekts auf deinem lokalen Computer auszuführen.
+## Project focus
 
-### 1. Repository klonen
+This project demonstrates modern React development, component-based architecture, responsive design, typed forms, protected user flows, client-side data management and polished UI animation.
 
-```bash
+## Author
 
-cd DEIN_REPOSITORY
-```
+Developed by [Feras-tec](https://github.com/Feras-tec).
+ssql
