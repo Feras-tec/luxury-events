@@ -57,4 +57,3 @@ This project demonstrates modern React development, component-based architecture
 ## Author
 
 Developed by [Feras-tec](https://github.com/Feras-tec).
-ssql
